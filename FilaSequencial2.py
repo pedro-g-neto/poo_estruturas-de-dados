@@ -4,24 +4,22 @@ class FilaSequencial:
         self.inicio = 0
         self.final = 0
         self.capacidade = capacidade
+        self.tamanho = 0
     def vazia(self):
-        return self.inicio == self.final
+        return self.tamanho == 0
 
     def enfileirar(self,dado):
         self.dados[self.final] = dado
-        if self.final == (self.capacidade - 1):
-            self.final = (self.final + 1) % self.capacidade
-            return True
-        self.final += 1
+        self.tamanho += 1
+        self.final = (self.final + 1) % self.capacidade
         return True
     def desenfileirar(self):
         if self.vazia():
             return False
+        removido = self.dados[self.inicio]
         self.dados[self.inicio] = None
-        if self.inicio == (self.capacidade - 1):
-            self.inicio = (self.inicio + 1) % 5
-            return True
-        self.inicio += 1
-        return True
+        self.tamanho -= 1
+        self.inicio = (self.inicio + 1) % self.capacidade
+        return removido
     def primeiro(self):
         return self.dados[self.inicio]
